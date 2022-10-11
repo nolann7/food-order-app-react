@@ -13,7 +13,12 @@ function cartReducer(state, action) {
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
   if (action.type === 'REMOVE') {
-    
+    const updatedItems = state.items.filter(item => item.id !== action.id);
+    const updatedTotalAmount = updatedItems.reduce((acc, currItem) => {
+      return acc + currItem.price * currItem.amount;
+    }, 0);
+    // state.totalAmount + action.item.price * action.item.amount;
+    return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
   return defaultState;
 }
