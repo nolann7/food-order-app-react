@@ -16,6 +16,7 @@ function cartReducer(state, action) {
       item => item.id === action.item.id,
     );
     const existingCartItem = state.items[existingCartIndex];
+    
     if (existingCartItem) {
       let updatedItem = {
         ...existingCartItem,
