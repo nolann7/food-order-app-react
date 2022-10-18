@@ -5,12 +5,12 @@ import Meals from './components/Meals/Meals';
 import CartProvider from './store/CartProvider';
 
 function App() {
-  const [cartIsShown, setCartIsOpen] = useState(false);
+  const [cartIsShown, setCartIsShown] = useState(false);
   const cartShowHandler = props => {
-    setCartIsOpen(true);
+    setCartIsShown(true);
   };
   const cartCloseHandler = props => {
-    setCartIsOpen(false);
+    setCartIsShown(false);
   };
   return (
     <CartProvider>
