@@ -1,37 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../UI/Card';
 import classes from './AvailableMeals.module.css';
 import MealItem from './Meal/MealItem';
 
-const DUMMY_MEALS = [
-  {
-    'id': 'm1',
-    'name': 'Sushi',
-    'description': 'Finest fish and veggies',
-    'price': 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-];
-
 const AvailableMeals = () => {
-  const MealsList = DUMMY_MEALS.map(meal => (
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      try {
+        const result = await fetch(
+          'https://react-http-5f8c9-default-rtdb.europe-west1.firebasedatabase.app/meals.json',
+        );
+        if (!result.ok) throw new Error('something went wrong');
+        const data = await result.json();
+        setIsLoaded(true);
+        setMeals(data);
+      } catch (err) {
+        setIsLoaded(true);
+        setError(err);
+        console.error(err, err.message);
+      }
+    };
+    fetchMeals()
+    // .catch(console.error);
+  }, []);
+
+  const MealsList = meals.map(meal => (
     <MealItem
       key={meal.id}
       name={meal.name}
@@ -43,7 +40,9 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{MealsList}</ul>
+        {error && <div>Ошибка: {error.message}</div>}
+        {!isLoaded && <p>Loading...</p>}
+        {isLoaded && <ul>{MealsList}</ul>}
       </Card>
     </section>
   );
