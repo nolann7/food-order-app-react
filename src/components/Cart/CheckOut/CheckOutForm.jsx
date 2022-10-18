@@ -68,7 +68,7 @@ const CheckOutForm = props => {
     : classes.control;
 
   return (
-    <form onSubmit={submitCheckoutHandler}>
+    <form onSubmit={submitCheckoutHandler} className={classes.form}>
       <div className={nameClasses}>
         <label htmlFor="name">Name</label>
         <input
