@@ -41,13 +41,12 @@ const CheckOutForm = props => {
   if (nameIsValid && streetIsValid && postalIsValid && cityIsValid) {
     formCheckoutIsValid = true;
   }
-
   const submitCheckoutHandler = e => {
     e.preventDefault();
 
     if (!formCheckoutIsValid) return;
 
-    console.log(enteredName,enteredStreet,enteredPostal,enteredCity);
+    console.log(enteredName, enteredStreet, enteredPostal, enteredCity);
 
     resetNameInput();
     resetStreetInput();
@@ -79,7 +78,7 @@ const CheckOutForm = props => {
           onBlur={nameInputBlurHandler}
           value={enteredName}
         />
-        {nameInputHasError && <p>Please enter valid Name</p>}
+        {nameInputHasError && <p className={classes.textError}>Please enter valid Name</p>}
       </div>
       <div className={streetClasses}>
         <label htmlFor="street">Street</label>
@@ -90,7 +89,7 @@ const CheckOutForm = props => {
           onBlur={streetInputBlurHandler}
           value={enteredStreet}
         />
-        {streetInputHasError && <p>Please enter valid Name</p>}
+        {streetInputHasError && <p className={classes.textError}>Please enter valid Adress</p>}
       </div>
       <div className={postalClasses}>
         <label htmlFor="postal">Postal code</label>
@@ -101,7 +100,7 @@ const CheckOutForm = props => {
           onBlur={postalInputBlurHandler}
           value={enteredPostal}
         />
-        {postalInputHasError && <p>Please enter valid Name</p>}
+        {postalInputHasError && <p className={classes.textError}>Please enter valid Postal</p>}
       </div>
       <div className={cityClasses}>
         <label htmlFor="city">City</label>
@@ -112,12 +111,16 @@ const CheckOutForm = props => {
           onBlur={cityInputBlurHandler}
           value={enteredCity}
         />
-        {cityInputHasError && <p>Please enter valid Name</p>}
+        {cityInputHasError && <p className={classes.textError}>Please enter valid City</p>}
       </div>
-      <button type="button" onClick={props.onCancel}>
-        Cancel
-      </button>
-      <button disabled={!formCheckoutIsValid}>Confirm</button>
+      <div className={classes.actions}>
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
+        <button disabled={!formCheckoutIsValid} className={classes.submit}>
+          Confirm
+        </button>
+      </div>
     </form>
   );
 };
