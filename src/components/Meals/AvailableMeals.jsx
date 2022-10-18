@@ -11,21 +11,25 @@ const AvailableMeals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const result = await fetch(
+        const response = await fetch(
           'https://react-http-5f8c9-default-rtdb.europe-west1.firebasedatabase.app/meals.json',
         );
-        if (!result.ok) throw new Error('something went wrong');
-        const data = await result.json();
+        if (!response.ok) throw new Error('something went wrong');
+        const data = await response.json();
         setIsLoaded(true);
         setMeals(data);
       } catch (err) {
         setIsLoaded(true);
         setError(err);
-        console.error(err, err.message);
+        console.error(err.message);
       }
     };
     fetchMeals()
-    // .catch(console.error);
+    // .catch(err => {
+    //   setIsLoaded(true);
+    //   setError(err);
+    // })
+    // вместо try catch внутри fetchMeals мы можем просто использовать catch на вызов fetchMeals, так как синхронно возвращается промис
   }, []);
 
   const MealsList = meals.map(meal => (
@@ -40,8 +44,8 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        {error && <div>Ошибка: {error.message}</div>}
-        {!isLoaded && <p>Loading...</p>}
+        {!isLoaded && <p className={classes.loading}>Loading...</p>}
+        {error && <div className={classes['error-fetch']}>Ошибка: {error.message}</div>}
         {isLoaded && <ul>{MealsList}</ul>}
       </Card>
     </section>
