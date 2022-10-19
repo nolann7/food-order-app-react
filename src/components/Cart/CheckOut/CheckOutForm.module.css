@@ -83,11 +83,4 @@
   color: #ca3e51;
 }
 
-.successPost {
-  text-align: center;
-  font-weight: bold;
-  font-size: large;
-  color: green;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-  margin: 1.5rem;
-}
+
