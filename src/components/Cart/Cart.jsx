@@ -3,13 +3,14 @@ import CartContext from '../../store/cart-context';
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 import CheckOutForm from './CheckOut/CheckOutForm';
+
 import classes from './Cart.module.css';
 
 const Cart = props => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOrdered, setIsOrdered] = useState(false);
-
+ 
   const ctxCart = useContext(CartContext);
   const totalAmount = `$${ctxCart.totalAmount.toFixed(2)}`;
   const hasItems = ctxCart.items.length > 0;
@@ -42,6 +43,7 @@ const Cart = props => {
           }),
         },
       );
+
       if (!response.ok) throw new Error('something wrong');
       await response.json();
       setIsSubmitting(false);
